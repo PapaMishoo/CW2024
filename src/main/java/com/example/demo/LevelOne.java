@@ -9,17 +9,24 @@ public class LevelOne extends LevelParent {
 	private static final double ENEMY_SPAWN_PROBABILITY = .20;
 	private static final int PLAYER_INITIAL_HEALTH = 5;
 
+	private boolean isLevelFinished = false;
+
 	public LevelOne(double screenHeight, double screenWidth) {
 		super(BACKGROUND_IMAGE_NAME, screenHeight, screenWidth, PLAYER_INITIAL_HEALTH);
 	}
 
+	/**
+	 * This method checks if the game is over.
+	 */
 	@Override
 	protected void checkIfGameOver() {
 		if (userIsDestroyed()) {
 			loseGame();
 		}
-		else if (userHasReachedKillTarget())
+		else if (userHasReachedKillTarget() && !isLevelFinished) {
 			goToNextLevel(NEXT_LEVEL);
+			isLevelFinished = true;
+		}
 	}
 
 	@Override
