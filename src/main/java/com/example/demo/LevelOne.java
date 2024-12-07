@@ -55,4 +55,9 @@ public class LevelOne extends LevelParent {
 		return getUser().getNumberOfKills() >= KILLS_TO_ADVANCE;
 	}
 
+	@Override
+	protected void misc(){
+
+	}
+
 }

@@ -9,16 +9,16 @@ public class Boss extends FighterPlane {
 	private static final double INITIAL_Y_POSITION = 250;
 	private static final double PROJECTILE_Y_POSITION_OFFSET = 70.00;
 	private static final double BOSS_FIRE_RATE = .04;
-	private static final double BOSS_SHIELD_PROBABILITY = .002;
+	private static final double BOSS_SHIELD_PROBABILITY = 1;
 	private static final int IMAGE_HEIGHT = 55;
 	private static final int VERTICAL_VELOCITY = 8;
 	private static final int HEALTH = 50;
 	private static final int MOVE_FREQUENCY_PER_CYCLE = 5;
 	private static final int ZERO = 0;
 	private static final int MAX_FRAMES_WITH_SAME_MOVE = 10;
-	private static final int Y_POSITION_UPPER_BOUND = -100;
-	private static final int Y_POSITION_LOWER_BOUND = 475;
-	private static final int MAX_FRAMES_WITH_SHIELD = 500;
+	private static final int Y_POSITION_UPPER_BOUND = -250;
+	private static final int Y_POSITION_LOWER_BOUND = 375;
+	private static final int MAX_FRAMES_WITH_SHIELD = 150;
 	private final List<Integer> movePattern;
 	private boolean isShielded;
 	private int consecutiveMovesInSameDirection;
@@ -35,14 +35,18 @@ public class Boss extends FighterPlane {
 		initializeMovePattern();
 	}
 
+	public boolean getIsShielded() {
+		return isShielded;
+	}
+
 	@Override
 	public void updatePosition() {
-		double initialTranslateY = getTranslateY();
 		moveVertically(getNextMove());
-		double currentPosition = getLayoutY() + getTranslateY();
-		if (currentPosition < Y_POSITION_UPPER_BOUND || currentPosition > Y_POSITION_LOWER_BOUND) {
-			setTranslateY(initialTranslateY);
-		}
+
+		if (getTranslateY() < Y_POSITION_UPPER_BOUND)
+			setTranslateY(Y_POSITION_UPPER_BOUND);
+		else if (getTranslateY() > Y_POSITION_LOWER_BOUND)
+			setTranslateY(Y_POSITION_LOWER_BOUND);
 	}
 	
 	@Override
