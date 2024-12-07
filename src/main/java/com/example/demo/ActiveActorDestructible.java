@@ -2,6 +2,7 @@ package com.example.demo;
 
 public abstract class ActiveActorDestructible extends ActiveActor implements Destructible {
 
+	private Runnable onDestroyedCallback;
 	private boolean isDestroyed;
 
 	public ActiveActorDestructible(String imageName, int imageHeight, double initialXPos, double initialYPos) {
@@ -20,6 +21,9 @@ public abstract class ActiveActorDestructible extends ActiveActor implements Des
 	@Override
 	public void destroy() {
 		setDestroyed(true);
+
+		if (onDestroyedCallback != null)
+			onDestroyedCallback.run();
 	}
 
 	protected void setDestroyed(boolean isDestroyed) {
@@ -28,6 +32,10 @@ public abstract class ActiveActorDestructible extends ActiveActor implements Des
 
 	public boolean isDestroyed() {
 		return isDestroyed;
+	}
+
+	public void setOnDestroyed(Runnable callback) {
+		this.onDestroyedCallback = callback;
 	}
 	
 }

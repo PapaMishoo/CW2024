@@ -9,7 +9,7 @@ public class Boss extends FighterPlane {
 	private static final double INITIAL_Y_POSITION = 250;
 	private static final double PROJECTILE_Y_POSITION_OFFSET = 70.00;
 	private static final double BOSS_FIRE_RATE = .04;
-	private static final double BOSS_SHIELD_PROBABILITY = 1;
+	private static final double BOSS_SHIELD_PROBABILITY = 0.005;
 	private static final int IMAGE_HEIGHT = 55;
 	private static final int VERTICAL_VELOCITY = 8;
 	private static final int HEALTH = 50;
