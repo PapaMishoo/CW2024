@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 import javafx.animation.*;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.image.*;
 import javafx.scene.input.*;
@@ -102,6 +103,14 @@ public abstract class LevelParent extends Observable {
 		timeline.getKeyFrames().add(gameLoop);
 	}
 
+	public void pauseGame() {
+		timeline.pause();
+	}
+
+	public void resumeGame() {
+		timeline.play();
+	}
+
 	private void initializeBackground() {
 		background.setFocusTraversable(true);
 		background.setFitHeight(screenHeight);
@@ -111,13 +120,15 @@ public abstract class LevelParent extends Observable {
 				KeyCode kc = e.getCode();
 				if (kc == KeyCode.UP) user.moveUp();
 				if (kc == KeyCode.DOWN) user.moveDown();
+				if (kc == KeyCode.LEFT) user.moveLeft();
+				if (kc == KeyCode.RIGHT) user.moveRight();
 				if (kc == KeyCode.SPACE) fireProjectile();
 			}
 		});
 		background.setOnKeyReleased(new EventHandler<KeyEvent>() {
 			public void handle(KeyEvent e) {
 				KeyCode kc = e.getCode();
-				if (kc == KeyCode.UP || kc == KeyCode.DOWN) user.stop();
+				if (kc == KeyCode.UP || kc == KeyCode.DOWN || kc == KeyCode.LEFT || kc == KeyCode.RIGHT) user.stop();
 			}
 		});
 		root.getChildren().add(background);
@@ -251,4 +262,7 @@ public abstract class LevelParent extends Observable {
 		currentNumberOfEnemies = enemyUnits.size();
 	}
 
+	public ImageView getBackground() {
+		return background;
+	}
 }
