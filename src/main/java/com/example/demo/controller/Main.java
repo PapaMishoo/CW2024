@@ -21,6 +21,9 @@ public class Main extends Application {
 		stage.setWidth(SCREEN_WIDTH);
 		myController = new Controller(stage);
 		myController.launchGame();
+
+		MainMenu mainMenu = new MainMenu();
+		mainMenu.show(stage);
 	}
 
 	public static void main(String[] args) {
