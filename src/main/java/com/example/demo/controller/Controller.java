@@ -5,18 +5,16 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.Observable;
 import java.util.Observer;
 
-import com.example.demo.Pause;
-import javafx.scene.Group;
+import com.example.demo.userinterface.Pause;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.Button;
 import javafx.stage.Stage;
-import com.example.demo.LevelParent;
+import com.example.demo.level.LevelParent;
 
 public class Controller implements Observer {
 
-	private static final String LEVEL_ONE_CLASS_NAME = "com.example.demo.LevelOne";
+	private static final String LEVEL_ONE_CLASS_NAME = "com.example.demo.level.LevelOne";
 	private final Stage stage;
 	private final Pause pause;
 
@@ -30,14 +28,6 @@ public class Controller implements Observer {
 
 			stage.show();
 			goToLevel(LEVEL_ONE_CLASS_NAME);
-
-			initializePauseMenu();
-	}
-
-	private void initializePauseMenu() {
-		Button pauseButton = pause.createPauseButton();
-		Group root = (Group) stage.getScene().getRoot();
-		root.getChildren().add(pauseButton);
 	}
 
 	private void goToLevel(String className) throws ClassNotFoundException, NoSuchMethodException, SecurityException,

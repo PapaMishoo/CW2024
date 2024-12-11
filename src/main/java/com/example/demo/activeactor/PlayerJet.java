@@ -1,6 +1,6 @@
-package com.example.demo;
+package com.example.demo.activeactor;
 
-public class UserPlane extends FighterPlane {
+public class PlayerJet extends FighterJet {
 
 	private static final String IMAGE_NAME = "userplane.png";
 	private static final double Y_UPPER_BOUND = 0;
@@ -18,11 +18,7 @@ public class UserPlane extends FighterPlane {
 	private int horizontalVelocityMultiplier;
 	private int numberOfKills;
 
-	public void stop(){
-		stopVertical();
-		stopHorizontal();
-	}
-	public UserPlane(int initialHealth) {
+	public PlayerJet(int initialHealth) {
 		super(IMAGE_NAME, IMAGE_HEIGHT, INITIAL_X_POSITION, INITIAL_Y_POSITION, initialHealth);
 		verticalVelocityMultiplier = 0;
 		horizontalVelocityMultiplier = 0;
@@ -30,7 +26,7 @@ public class UserPlane extends FighterPlane {
 
 	@Override
 	public void updatePosition() {
-		// Handle vertical movement
+
 		if (isMovingVertically()) {
 			double initialTranslateY = getTranslateY();
 			this.moveVertically(VERTICAL_VELOCITY * verticalVelocityMultiplier);
@@ -40,7 +36,7 @@ public class UserPlane extends FighterPlane {
 			}
 		}
 
-		// Handle horizontal movement
+
 		if (isMovingHorizontally()) {
 			double initialTranslateX = getTranslateX();
 			this.moveHorizontally(HORIZONTAL_VELOCITY * horizontalVelocityMultiplier);
@@ -58,7 +54,7 @@ public class UserPlane extends FighterPlane {
 
 	@Override
 	public ActiveActorDestructible fireProjectile() {
-		return new UserProjectile(PROJECTILE_X_POSITION, getProjectileYPosition(PROJECTILE_Y_POSITION_OFFSET));
+		return new PlayerMissiles(getTranslateX() + 100, getProjectileYPosition(PROJECTILE_Y_POSITION_OFFSET));
 	}
 
 	private boolean isMovingVertically() {

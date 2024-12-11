@@ -1,6 +1,8 @@
-package com.example.demo;
+package com.example.demo.userinterface;
 
 
+import com.example.demo.level.LevelParent;
+import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.StackPane;
@@ -20,15 +22,23 @@ public class Pause {
 
     public void setCurrentScene(Scene currentScene) {
         this.currentScene = currentScene;
+
+        initializePauseButton(currentScene);
     }
 
     public void setCurrentLevel(LevelParent currentLevel) {
         this.currentLevel = currentLevel;
     }
 
+    private void initializePauseButton(Scene currentScene) {
+        Group root = (Group) currentScene.getRoot();
+        root.getChildren().add(createPauseButton());
+    }
+
     // Add a pause button to the game
     public Button createPauseButton() {
         Button pauseButton = new Button("Pause");
+        pauseButton.setViewOrder(-1);
         pauseButton.setStyle("-fx-font-size: 14; -fx-background-color: #FF4500; -fx-text-fill: #FFF; -fx-padding: 5;");
         pauseButton.setOnAction(e -> pauseGame());
         pauseButton.setLayoutX(1200); // Adjust X position (top-right of screen)
@@ -59,8 +69,7 @@ public class Pause {
 
         pauseMenuLayout.getChildren().addAll(resumeButton);
 
-        // Create and set the pause menu scene
-        // Scene for the pause menu
+
         Scene pauseMenuScene = new Scene(new StackPane(pauseMenuLayout), 1300, 750);
         stage.setScene(pauseMenuScene);
     }

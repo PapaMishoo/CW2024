@@ -1,18 +1,18 @@
-package com.example.demo;
+package com.example.demo.activeactor;
 
 import java.util.*;
 
-public class Boss extends FighterPlane {
+public class Boss extends FighterJet {
 
 	private static final String IMAGE_NAME = "bossplane.png";
 	private static final double INITIAL_X_POSITION = 1000;
 	private static final double INITIAL_Y_POSITION = 250;
-	private static final double PROJECTILE_Y_POSITION_OFFSET = 70.00;
+	private static final double PROJECTILE_Y_POSITION_OFFSET = 0.00;
 	private static final double BOSS_FIRE_RATE = .04;
 	private static final double BOSS_SHIELD_PROBABILITY = 0.005;
 	private static final int IMAGE_HEIGHT = 55;
 	private static final int VERTICAL_VELOCITY = 8;
-	private static final int HEALTH = 50;
+	private static final int HEALTH = 10;
 	private static final int MOVE_FREQUENCY_PER_CYCLE = 5;
 	private static final int ZERO = 0;
 	private static final int MAX_FRAMES_WITH_SAME_MOVE = 10;
@@ -57,7 +57,7 @@ public class Boss extends FighterPlane {
 
 	@Override
 	public ActiveActorDestructible fireProjectile() {
-		return bossFiresInCurrentFrame() ? new BossProjectile(getProjectileInitialPosition()) : null;
+		return bossFiresInCurrentFrame() ? new BossMissiles(getProjectileInitialPosition()) : null;
 	}
 	
 	@Override

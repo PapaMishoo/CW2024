@@ -1,7 +1,9 @@
-package com.example.demo.controller;
+package com.example.demo;
 
 import java.lang.reflect.InvocationTargetException;
 
+import com.example.demo.controller.Controller;
+import com.example.demo.userinterface.MainMenu;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
@@ -19,8 +21,6 @@ public class Main extends Application {
 		stage.setResizable(false);
 		stage.setHeight(SCREEN_HEIGHT);
 		stage.setWidth(SCREEN_WIDTH);
-		myController = new Controller(stage);
-		myController.launchGame();
 
 		MainMenu mainMenu = new MainMenu();
 		mainMenu.show(stage);
