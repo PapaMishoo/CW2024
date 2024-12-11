@@ -87,7 +87,7 @@ public class LevelThree extends LevelParent {
             if (Math.random() < ENEMY_SPAWN_PROBABILITY) {
                 Double newEnemyInitialYPosition = getAvailableYPosition();
 
-                ActiveActorDestructible newEnemy = new EnemyJet(getScreenWidth(), newEnemyInitialYPosition * getEnemyMaximumYPosition());
+                ActiveActorDestructible newEnemy = new EnemyJet(this, getScreenWidth(), newEnemyInitialYPosition * getEnemyMaximumYPosition());
                 addEnemyUnit(newEnemy);
                 usedYPositions.add(newEnemyInitialYPosition);
 

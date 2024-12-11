@@ -1,5 +1,7 @@
 package com.example.demo.activeactor;
 
+import com.example.demo.level.LevelParent;
+
 import java.util.*;
 
 public class Boss extends FighterJet {
@@ -19,14 +21,16 @@ public class Boss extends FighterJet {
 	private static final int Y_POSITION_UPPER_BOUND = -250;
 	private static final int Y_POSITION_LOWER_BOUND = 375;
 	private static final int MAX_FRAMES_WITH_SHIELD = 150;
+	private final LevelParent level;
 	private final List<Integer> movePattern;
 	private boolean isShielded;
 	private int consecutiveMovesInSameDirection;
 	private int indexOfCurrentMove;
 	private int framesWithShieldActivated;
 
-	public Boss() {
+	public Boss(LevelParent level) {
 		super(IMAGE_NAME, IMAGE_HEIGHT, INITIAL_X_POSITION, INITIAL_Y_POSITION, HEALTH);
+		this.level = level;
 		movePattern = new ArrayList<>();
 		consecutiveMovesInSameDirection = 0;
 		indexOfCurrentMove = 0;
@@ -53,6 +57,7 @@ public class Boss extends FighterJet {
 	public void updateActor() {
 		updatePosition();
 		updateShield();
+		level.spawnEnemyProjectile(fireProjectile());
 	}
 
 	@Override

@@ -92,7 +92,6 @@ public abstract class LevelParent extends Observable {
 	protected void updateScene() {
 		spawnEnemyUnits();
 		updateActors();
-		generateEnemyFire();
 		updateNumberOfEnemies();
 		handleEnemyPenetration();
 		handleUserProjectileCollisions();
@@ -141,11 +140,7 @@ public abstract class LevelParent extends Observable {
 		userProjectiles.add(projectile);
 	}
 
-	private void generateEnemyFire() {
-		enemyUnits.forEach(enemy -> spawnEnemyProjectile(((FighterJet) enemy).fireProjectile()));
-	}
-
-	private void spawnEnemyProjectile(ActiveActorDestructible projectile) {
+	public void spawnEnemyProjectile(ActiveActorDestructible projectile) {
 		if (projectile != null) {
 			root.getChildren().add(projectile);
 			enemyProjectiles.add(projectile);

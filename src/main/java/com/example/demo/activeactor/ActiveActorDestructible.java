@@ -1,5 +1,7 @@
 package com.example.demo.activeactor;
 
+import com.example.demo.SoundManager;
+
 public abstract class ActiveActorDestructible extends ActiveActor implements Destructible {
 
 	private Runnable onDestroyedCallback;

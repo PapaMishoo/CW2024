@@ -82,7 +82,7 @@ public class LevelFour extends LevelParent {
             if (Math.random() < ENEMY_SPAWN_PROBABILITY) {
                 Double newEnemyInitialYPosition = getAvailableYPosition();
 
-                ActiveActorDestructible newEnemy = new BossJet(getScreenWidth(), newEnemyInitialYPosition * getEnemyMaximumYPosition());
+                ActiveActorDestructible newEnemy = new BossJet(this, getScreenWidth(), newEnemyInitialYPosition * getEnemyMaximumYPosition());
                 addEnemyUnit(newEnemy);
                 usedYPositions.add(newEnemyInitialYPosition);
 

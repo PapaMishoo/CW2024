@@ -1,5 +1,7 @@
 package com.example.demo.activeactor;
 
+import com.example.demo.SoundManager;
+
 public abstract class FighterJet extends ActiveActorDestructible {
 
 	private int health;
@@ -16,6 +18,7 @@ public abstract class FighterJet extends ActiveActorDestructible {
 		health--;
 		if (healthAtZero()) {
 			this.destroy();
+			SoundManager.playSound("impactsound.wav");
 		}
 	}
 

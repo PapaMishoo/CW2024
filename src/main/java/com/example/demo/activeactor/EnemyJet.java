@@ -1,5 +1,8 @@
 package com.example.demo.activeactor;
 
+import com.example.demo.controller.Controller;
+import com.example.demo.level.LevelParent;
+
 public class EnemyJet extends FighterJet {
 
 	private static final String IMAGE_NAME = "enemyplane.png";
@@ -10,8 +13,12 @@ public class EnemyJet extends FighterJet {
 	private static final int INITIAL_HEALTH = 1;
 	private static final double FIRE_RATE = .01;
 
-	public EnemyJet(double initialXPos, double initialYPos) {
+	private final LevelParent level;
+
+	public EnemyJet(LevelParent level, double initialXPos, double initialYPos) {
 		super(IMAGE_NAME, IMAGE_HEIGHT, initialXPos, initialYPos, INITIAL_HEALTH);
+
+		this.level = level;
 	}
 
 	@Override
@@ -32,6 +39,6 @@ public class EnemyJet extends FighterJet {
 	@Override
 	public void updateActor() {
 		updatePosition();
+		level.spawnEnemyProjectile(fireProjectile());
 	}
-
 }
