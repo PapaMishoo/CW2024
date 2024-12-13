@@ -22,12 +22,23 @@ public class LevelOne extends LevelParent {
 
 	private boolean isLevelFinished = false;
 
+	/**
+	 * Constructs a {@link LevelOne} instance, initializing the screen dimensions, background, player health, and
+	 * level-specific configurations.
+	 *
+	 * @param screenHeight the height of the game screen
+	 * @param screenWidth the width of the game screen
+	 */
 	public LevelOne(double screenHeight, double screenWidth) {
 		super(BACKGROUND_IMAGE_NAME, screenHeight, screenWidth, PLAYER_INITIAL_HEALTH);
 	}
 
 	/**
-	 * This method checks if the game is over.
+	 * Checks if the game ends due to the user being destroyed or progresses to the next level if the kill target
+	 * is reached.
+	 *Actions:
+	 * - Calls {@link #loseGame()} if the user is destroyed.
+	 * - Calls {@link #goToNextLevel(String)} if the kill target is met.
 	 */
 	@Override
 	protected void checkIfGameOver() {
@@ -41,12 +52,19 @@ public class LevelOne extends LevelParent {
 	}
 
 
-
+	/**
+	 * Adds the {@link com.example.demo.activeactor.PlayerJet} to the scene graph's root group, visually instantiating
+	 * the player in the game world.
+	 */
 	@Override
 	protected void initializeFriendlyUnits() {
 		getRoot().getChildren().add(getUser());
 	}
 
+	/**
+	 * Spawns enemy units dynamically by checking spawn probability, assigning available Y positions, and managing
+	 * overlap via `usedYPositions`.
+	 */
 	@Override
 	protected void spawnEnemyUnits() {
 		int currentNumberOfEnemies = getCurrentNumberOfEnemies();
@@ -63,10 +81,18 @@ public class LevelOne extends LevelParent {
 		}
 	}
 
+	/**
+	 * Frees a Y position, making it available for reuse.
+	 *@param yPosition the Y position to be freed
+	 */
 	private void freeYPosition(Double yPosition) {
 		usedYPositions.remove(yPosition);
 	}
 
+	/**
+	 * Returns an available Y position from predefined ones or a random value if all are occupied.
+	 * @return an available Y position as a Double
+	 */
 	private Double getAvailableYPosition() {
 		List<Double> availablePositions = new ArrayList<>();
 		for (double y : PREDEFINED_Y_POSITIONS) {
@@ -82,17 +108,25 @@ public class LevelOne extends LevelParent {
 		return availablePositions.get((int) (Math.random() * availablePositions.size()));
 	}
 
-
-
+	/**
+	 * Creates and returns a new {@link LevelView} initialized with the root group and player's health.
+	 * @return a new {@link LevelView} instance
+	 */
 	@Override
 	protected LevelView instantiateLevelView() {
 		return new LevelView(getRoot(), PLAYER_INITIAL_HEALTH);
 	}
 
+	/**
+	 * Checks if the user has reached the required kills to advance to the next level.
+	 */
 	private boolean userHasReachedKillTarget() {
 		return getUser().getNumberOfKills() >= KILLS_TO_ADVANCE;
 	}
 
+	/**
+	 * Handles level-specific logic not covered by primary methods, providing additional functionality as needed.
+	 */
 	@Override
 	protected void misc(){
 

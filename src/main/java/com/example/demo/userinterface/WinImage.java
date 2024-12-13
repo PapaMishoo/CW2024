@@ -10,7 +10,13 @@ public class WinImage extends ImageView {
 	private static final String IMAGE_NAME = "/com/example/demo/images/youwin.png";
 	private static final int HEIGHT = 500;
 	private static final int WIDTH = 600;
-	
+
+	/**
+	 * Creates a {@link WinImage} instance with initialized position, dimensions, visibility, and image.
+	 *
+	 * @param xPosition the x-coordinate position
+	 * @param yPosition the y-coordinate position
+	 */
 	public WinImage(double xPosition, double yPosition) {
 		this.setImage(new Image(Objects.requireNonNull(getClass().getResource(IMAGE_NAME)).toExternalForm()));
 		this.setVisible(false);
@@ -19,7 +25,10 @@ public class WinImage extends ImageView {
 		this.setLayoutX(xPosition);
 		this.setLayoutY(yPosition);
 	}
-	
+
+	/**
+	 * Makes the {@link WinImage} visible on the screen by setting its visibility to true.
+	 */
 	public void showWinImage() {
 		this.setVisible(true);
 	}

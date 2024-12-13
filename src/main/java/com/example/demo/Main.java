@@ -14,6 +14,18 @@ public class Main extends Application {
 	private static final String TITLE = "Sky Battle";
 	private Controller myController;
 
+	/**
+	 * Initializes and displays the primary stage with title, size, and non-resizable window, then shows the main menu.
+	 *
+	 * @param stage the primary stage to be displayed
+	 * @throws ClassNotFoundException if a class cannot be found during initialization
+	 * @throws NoSuchMethodException if a required method is missing
+	 * @throws SecurityException if access to a method or resource is denied
+	 * @throws InstantiationException if an object cannot be instantiated
+	 * @throws IllegalAccessException if access to a class or method is restricted
+	 * @throws IllegalArgumentException if an invalid argument is passed
+	 * @throws InvocationTargetException if an exception occurs during method invocation
+	 */
 	@Override
 	public void start(Stage stage) throws ClassNotFoundException, NoSuchMethodException, SecurityException,
 			InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
@@ -26,6 +38,11 @@ public class Main extends Application {
 		mainMenu.show(stage);
 	}
 
+	/**
+	 *  Main entry point for the JavaFX application, launching the JavaFX runtime.
+	 *
+	 * @param args the command-line arguments passed to the application
+	 */
 	public static void main(String[] args) {
 		launch();
 	}

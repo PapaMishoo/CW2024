@@ -18,11 +18,25 @@ public class Controller implements Observer {
 	private final Stage stage;
 	private final Pause pause;
 
+	/**
+	 * Constructs a {@link Controller} to initialize the game stage and pause functionality.
+	 */
 	public Controller(Stage stage) {
 		this.stage = stage;
 		this.pause = new Pause(stage); // Pass the stage and the active game scene
 	}
 
+	/**
+	 * Initiates the game by displaying the primary stage and dynamically loading the first level using reflection.
+	 *
+	 * @throws ClassNotFoundException if the level class {@code LEVEL_ONE_CLASS_NAME} cannot be located
+	 * @throws NoSuchMethodException if the required constructor for the level class is not found
+	 * @throws SecurityException if access to the constructor is restricted
+	 * @throws InstantiationException if an instance of the level class cannot be created
+	 * @throws IllegalAccessException if the constructor or its class is inaccessible
+	 * @throws IllegalArgumentException if the provided arguments for the constructor are invalid
+	 * @throws InvocationTargetException if the invoked constructor throws an exception
+	 */
 	public void launchGame() throws ClassNotFoundException, NoSuchMethodException, SecurityException,
 			InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException  {
 
@@ -30,6 +44,19 @@ public class Controller implements Observer {
 			goToLevel(LEVEL_ONE_CLASS_NAME);
 	}
 
+	/**
+	 * Transitions the game to the specified level by dynamically loading its class, creating an instance, and
+	 * initializing its scene using reflection.
+	 *
+	 * @param className the fully qualified name of the level class to load and start
+	 * @throws ClassNotFoundException if the specified level class cannot be located
+	 * @throws NoSuchMethodException if the required constructor for the level class is not found
+	 * @throws SecurityException if the application is not allowed to access the constructor
+	 * @throws InstantiationException if an instance of the level class cannot be created
+	 * @throws IllegalAccessException if the constructor or its class is inaccessible
+	 * @throws IllegalArgumentException if the provided arguments are invalid for the constructor
+	 * @throws InvocationTargetException if the invoked constructor throws an exception
+	 */
 	private void goToLevel(String className) throws ClassNotFoundException, NoSuchMethodException, SecurityException,
 			InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
 			Class<?> myClass = Class.forName(className);
@@ -43,6 +70,14 @@ public class Controller implements Observer {
 			pause.setCurrentLevel(myLevel);
 	}
 
+	/**
+	 * Handles updates from the observable object by attempting to transition to the specified level, catching
+	 * exceptions, and displaying error alerts if needed.
+	 *
+	 * @param arg0 the observable object being observed, typically the source of the update
+	 * @param arg1 the argument passed by the observable object, in this case, expected to be
+	 *             the name of the level class as a String
+	 */
 	@Override
 	public void update(Observable arg0, Object arg1) {
 		try {

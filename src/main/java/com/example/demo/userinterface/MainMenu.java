@@ -17,6 +17,11 @@ public class MainMenu {
     private static final int SCREEN_WIDTH = 1300;
     private static final int SCREEN_HEIGHT = 750;
 
+    /**
+     * Displays the {@link MainMenu} on the given stage with options to start the game or exit the application.
+     *
+     * @param stage the stage on which the main menu will be displayed
+     */
     public void show(Stage stage) {
 
         Group menuLayout = new Group();

@@ -12,10 +12,18 @@ public class InputManager {
     private static InputManager instance;
     private final Set<KeyCode> pressedKeys;
 
+    /**
+     * Private constructor for the {@link InputManager} singleton. Initializes the set of pressed keys.
+     */
     private InputManager() {
         pressedKeys = new HashSet<>();
     }
 
+    /**
+     * Returns the singleton instance of {@link InputManager}.
+     *
+     * @return the instance of InputManager.
+     */
     public static InputManager getInstance() {
         if (instance == null) {
             instance = new InputManager();
@@ -23,11 +31,17 @@ public class InputManager {
         return instance;
     }
 
+    /**
+     * Sets up key event handlers for the specified node and binds them to player actions.
+     *
+     * @param node the UI node that listens for key events.
+     * @param user the player character to control.
+     * @param fireProjectile the action to trigger when the fire button (SPACE) is pressed.
+     */
     public void initializeInputs(Node node, PlayerJet user, Runnable fireProjectile) {
         node.setOnKeyPressed(this::handleKeyPressed);
         node.setOnKeyReleased(this::handleKeyReleased);
 
-        // Specific game logic for user movements and actions
         node.addEventHandler(KeyEvent.KEY_PRESSED, e -> {
             KeyCode kc = e.getCode();
             if (kc == KeyCode.UP) user.moveUp();
@@ -44,18 +58,37 @@ public class InputManager {
         });
     }
 
+    /**
+     * Adds the pressed key to the set of currently pressed keys.
+     *
+     * @param event the key event triggered when a key is pressed.
+     */
     private void handleKeyPressed(KeyEvent event) {
         pressedKeys.add(event.getCode());
     }
 
+    /**
+     * Removes the released key from the set of currently pressed keys.
+     *
+     * @param event the key event triggered when a key is released.
+     */
     private void handleKeyReleased(KeyEvent event) {
         pressedKeys.remove(event.getCode());
     }
 
+    /**
+     * Checks if a specific key is currently pressed.
+     *
+     * @param key the KeyCode of the key to check.
+     * @return true if the key is pressed, false otherwise.
+     */
     public boolean isKeyPressed(KeyCode key) {
         return pressedKeys.contains(key);
     }
 
+    /**
+     * Clears all keys from the set of pressed keys.
+     */
     public void clearAllKeys() {
         pressedKeys.clear();
     }

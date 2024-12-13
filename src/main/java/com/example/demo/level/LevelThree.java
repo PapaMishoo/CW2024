@@ -1,5 +1,6 @@
 package com.example.demo.level;
 
+import com.example.demo.CollisionHandler;
 import com.example.demo.activeactor.ActiveActorDestructible;
 import com.example.demo.activeactor.EnemyJet;
 import com.example.demo.activeactor.Meteor;
@@ -24,12 +25,19 @@ public class LevelThree extends LevelParent {
 
     private boolean isLevelFinished = false;
 
+    /**
+     * Constructs a {@link LevelThree} instance, initializing meteors and setting up the game scene using parent class functionality.
+     */
     public LevelThree(double screenHeight, double screenWidth) {
         super(BACKGROUND_IMAGE_NAME, screenHeight, screenWidth, PLAYER_INITIAL_HEALTH);
 
         this.meteors = new ArrayList<>();
     }
 
+    /**
+     * Extends the parent `updateScene` method in {@link LevelThree} to handle meteor-related mechanics, including
+     * collisions and removing out-of-bounds meteors.
+     */
     @Override
     protected void updateScene() {
         super.updateScene();
@@ -37,10 +45,18 @@ public class LevelThree extends LevelParent {
         handleMeteorOutOfBounds();
     }
 
+    /**
+     * Manages collisions between friendly units and meteors during the update cycle, applying damage using the
+     * `handleCollisions` helper.
+     */
     private void handleMeteorCollisions() {
-        handleCollisions(friendlyUnits, meteors);
+        CollisionHandler.handleCollisions(friendlyUnits, meteors);
     }
 
+    /**
+     * Removes off-screen {@link Meteor} by destroying those exceeding the vertical limit of 750 to optimize resources
+     * and maintain gameplay performance.
+     */
     private void handleMeteorOutOfBounds() {
         for (ActiveActorDestructible meteor : meteors) {
             if (meteor.getTranslateY() > 750)
@@ -48,12 +64,20 @@ public class LevelThree extends LevelParent {
         }
     }
 
+    /**
+     * Extends the parent `updateActors` method in {@link LevelThree} to update meteors by invoking their
+     * `updateActor` method.
+     */
     @Override
     protected void updateActors() {
         super.updateActors();
         meteors.forEach(meteor -> meteor.updateActor());
     }
 
+    /**
+     * Extends `LevelParent#removeAllDestroyedActors` to remove destroyed {@link Meteor} objects from the
+     * {@code meteors} collection, maintaining game state and performance.
+     */
     @Override
     protected void removeAllDestroyedActors() {
         super.removeAllDestroyedActors();
@@ -61,7 +85,8 @@ public class LevelThree extends LevelParent {
     }
 
     /**
-     * This method checks if the game is over.
+     * Checks if the game ends with {@code loseGame()} if the player is destroyed or transitions to the next level
+     * upon reaching the kill target.
      */
     @Override
     protected void checkIfGameOver() {
@@ -75,11 +100,19 @@ public class LevelThree extends LevelParent {
         }
     }
 
+    /**
+     * Overrides the parent method to initialize friendly units by adding the
+     * {@link com.example.demo.activeactor.PlayerJet} to the game scene's root group.
+     */
     @Override
     protected void initializeFriendlyUnits() {
         getRoot().getChildren().add(getUser());
     }
 
+    /**
+     * Overrides the parent method to spawn enemy units and {@link Meteor} in {@link LevelThree}, ensuring dynamic
+     * gameplay by maintaining target counts and managing positions.
+     */
     @Override
     protected void spawnEnemyUnits() {
         int currentNumberOfEnemies = getCurrentNumberOfEnemies();
@@ -101,15 +134,24 @@ public class LevelThree extends LevelParent {
         }
     }
 
+    /**
+     * Adds a {@link Meteor} to the game by updating the meteors collection and including it in the root node for
+     * visibility and interaction.     */
     private void addMeteor(Meteor meteor) {
         meteors.add(meteor);
         getRoot().getChildren().add(meteor);
     }
 
+    /**
+     * Frees a Y position by removing it from the list of used positions.
+     */
     private void freeYPosition(Double yPosition) {
         usedYPositions.remove(yPosition);
     }
 
+    /**
+     * Calculates and returns an available Y position, selecting from unused predefined positions or generating a
+     * random value if none are available.     */
     private Double getAvailableYPosition() {
         List<Double> availablePositions = new ArrayList<>();
         for (double y : PREDEFINED_Y_POSITIONS) {
@@ -125,15 +167,25 @@ public class LevelThree extends LevelParent {
         return availablePositions.get((int) (Math.random() * availablePositions.size()));
     }
 
+    /**
+     * Returns a {@link LevelView} configured for the level using the game root and player initial health.
+     */
     @Override
     protected LevelView instantiateLevelView() {
         return new LevelView(getRoot(), PLAYER_INITIAL_HEALTH);
     }
 
+    /**
+     * @return true if the user's kill count meets or exceeds the required target, false otherwise.
+     */
     private boolean userHasReachedKillTarget() {
         return getUser().getNumberOfKills() >= KILLS_TO_ADVANCE;
     }
 
+    /**
+     * Provides an extension point for level-specific behavior in {@link LevelThree}, allowing customization of
+     * unique gameplay mechanics.
+     */
     @Override
     protected void misc(){
         // Optional: Add any additional miscellaneous behavior for the level
